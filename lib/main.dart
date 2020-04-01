@@ -57,7 +57,6 @@ class _RestartWidgetState extends State<RestartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('===========================seaphy=========================');
     return Container(
       key: key,
       child: widget.child,
