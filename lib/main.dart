@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wy_fluapp/pages/splash/splash_widget.dart';
 
@@ -37,6 +38,17 @@ class RestartWidget extends StatefulWidget {
 class _RestartWidgetState extends State<RestartWidget> {
   Key key = UniqueKey();
 
+  @override
+  void initState() {
+    super.initState();
+    TargetPlatform tp = defaultTargetPlatform;
+    print('The targetPlatform is $tp' + '');
+
+    /// 可以指定所有平台的交互方式都跟iOS一样
+    // debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+    // print(defaultTargetPlatform); // 会输出TargetPlatform.iOS
+  }
+
   void restartApp() {
     setState(() {
       key = UniqueKey();
@@ -45,6 +57,7 @@ class _RestartWidgetState extends State<RestartWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print('===========================seaphy=========================');
     return Container(
       key: key,
       child: widget.child,
