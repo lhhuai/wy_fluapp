@@ -70,12 +70,12 @@ class _SplashWidgetState extends State<SplashWidget> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(WYIcons.favorites, color: Colors.red,),
+                            // Icon(WYIcons.favorites, color: Colors.red,),
                             Text(
                               '敢对我的伙伴出手，就要做好心理准备。',
                               style: TextStyle(fontSize: 15.0, color: Colors.black),
                             ),
-                            Icon(WYIcons.favorites, color: Colors.red,),
+                            // Icon(WYIcons.favorites, color: Colors.red,),
                           ],
                         ),
                       ),
