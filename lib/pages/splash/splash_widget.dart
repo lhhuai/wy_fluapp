@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wy_fluapp/pages/container_page.dart';
 import 'package:wy_fluapp/utils/screen_utils.dart';
 import 'package:wy_fluapp/constant/constant.dart';
 import 'package:wy_fluapp/constant/wy_icons.dart';
@@ -17,9 +20,7 @@ class _SplashWidgetState extends State<SplashWidget> {
     super.initState();
   }
 
-  var container = Center(
-    child: Text("home"),
-  );
+  var container = ContainerPage();
 
   static const platform = const MethodChannel('www.seaphy.com/battery');
   
@@ -78,23 +79,74 @@ class _SplashWidgetState extends State<SplashWidget> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            RaisedButton(
-                              onPressed: _getBatteryLevel,
-                              child: Text('Get Battery Level'),
-                            ),
-                            Text(_batteryLevel),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.only(top: 10),
+                      //   child: Column(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: <Widget>[
+                      //       RaisedButton(
+                      //         onPressed: _getBatteryLevel,
+                      //         child: Text('Get Battery Level'),
+                      //       ),
+                      //       Text(_batteryLevel),
+                      //     ],
+                      //   ),
+                      // ),
                       // Padding(
                       //   padding: EdgeInsets.only(top: 20.0),
                       //   child: Icon(WYIcons.favorites, color: Colors.red,),
                       // ),
+                    ],
+                  ),
+                ),
+                SafeArea(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment(1.0, 0.0),
+                        child: Container(
+                          margin: EdgeInsets.only(right: 30.0, top: 20.0),
+                          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 2.0, bottom: 2.0),
+                          child: CountDownWidget(
+                            onCountDownFinishCallBack: (bool value) {
+                              if (value) {
+                                setState(() {
+                                  showAd = false;
+                                });
+                              }
+                            },
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color(0xffEDEDED),
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 40.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(
+                              Constant.ASSETS_IMG + 'robot.png',
+                              width: 30.0,
+                              height: 30.0,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.0),
+                              child: Text(
+                                'Hi, seaphy.',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18.0,
+                                  // fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -107,5 +159,48 @@ class _SplashWidgetState extends State<SplashWidget> {
         ),
       ],
     );
+  }
+}
+
+class CountDownWidget extends StatefulWidget {
+  final onCountDownFinishCallBack;
+
+  CountDownWidget({Key key, @required this.onCountDownFinishCallBack}) : super(key: key);
+
+  @override
+  _CountDownWidgetState createState() => _CountDownWidgetState();
+}
+
+class _CountDownWidgetState extends State<CountDownWidget> {
+  var _seconds = 6;
+  Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '$_seconds',
+      style: TextStyle(fontSize: 17.0),
+    );
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {});
+      if (_seconds <= 1) {
+        widget.onCountDownFinishCallBack(true);
+        _cancelTimer();
+      }
+      _seconds--;
+    });
+  }
+
+  void _cancelTimer() {
+    _timer?.cancel();
   }
 }
