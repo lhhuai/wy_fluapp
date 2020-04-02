@@ -1,8 +1,8 @@
 *.DS_Store
 .DS_Store
 .dart_tool
-.dart_tool/*
+.dart_tool/
 build
-build/*
+build/
 .packages
 
