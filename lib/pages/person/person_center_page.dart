@@ -10,6 +10,8 @@ class PersonCenterPage extends StatefulWidget {
 class _PersonCenterPageState extends State<PersonCenterPage> {
   @override
   Widget build(BuildContext context) {
-    return Text('PersonCenterPage');
+    return Center(
+      child: Text('PersonCenterPage'),
+    );
   }
 }
